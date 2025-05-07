@@ -1,26 +1,31 @@
-# Marketing Analysis Project
+# Marketing Conversion Prediction – INST414 Final Project
 
-<a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
-    <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
-</a>
+This project analyzes marketing campaign data to build predictive models that estimate whether a customer will convert based on engagement, demographics, and campaign features.
 
-Marketing Analysis to Increase Sales
+## 🔍 Project Overview
 
-## Project Organization
+We used structured marketing campaign data to train and evaluate multiple predictive models. Our goal was to optimize marketing strategies by identifying the features that drive customer conversions.
 
-```
-├── LICENSE            <- Open-source license if one is chosen
-├── Makefile           <- Makefile with convenience commands like `make data` or `make train`
-├── README.md          <- The top-level README for developers using this project.
-├── data
-│   ├── external       <- Data from third party sources.
-│   ├── interim        <- Intermediate data that has been transformed.
-│   ├── processed      <- The final, canonical data sets for modeling.
-│   └── raw            <- The original, immutable data dump.
+This project was developed as part of the final assignment for INST414 – Data Science Methods at the University of Maryland.
+
+## 🧠 Problem Statement
+
+Can we predict whether a user will convert based on campaign and customer data?
+
+Marketing teams often spend large sums targeting broad audiences. Predicting likely converters can significantly reduce costs and increase efficiency.
+
+## 🛠️ Project Structure
+
+This project follows the Cookiecutter Data Science structure:
+
+├── data/
+│   ├── raw/             <- Original data
+│   ├── interim/         <- Cleaned, intermediate datasets
+│   ├── processed/       <- Final datasets for modeling
 │
-├── docs               <- A default mkdocs project; see www.mkdocs.org for details
-│
-├── models             <- Trained and serialized models, model predictions, or model summaries
+├── models/              <- Trained model .pkl files
+├── reports/
+│   └── figures/         <- Visualizations like ROC curves and confusion matrices
 │
 ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
 │                         the creator's initials, and a short `-` delimited description, e.g.
@@ -77,3 +82,88 @@ python -m marketing_analysis.modeling.visualize_and_error_analysis plot-confusio
 python -m marketing_analysis.modeling.visualize_and_error_analysis plot-roc-curves
 python -m marketing_analysis.modeling.visualize_and_error_analysis plot-feature-importance
 python -m marketing_analysis.modeling.visualize_and_error_analysis find-errors
+├── notebooks/           <- Jupyter notebooks for exploration
+├── marketing_analysis/  <- All source code
+│   ├── config.py
+│   ├── dataset.py
+│   ├── features.py
+│   ├── plots.py
+│   └── modeling/
+│       ├── train.py
+│       ├── predict.py
+│       └── visualize_and_error_analysis.py
+
+## ⚙️ Setup and Usage
+
+### 📦 Environment Setup
+
+Use Conda to create the environment:
+
+conda env create -f environment.yml
+conda activate marketing_analysis
+
+### ▶️ Run the Full Pipeline
+
+python -m marketing_analysis.dataset
+python -m marketing_analysis.features
+python -m marketing_analysis.modeling.train
+python -m marketing_analysis.modeling.predict
+python -m marketing_analysis.modeling.visualize_and_error_analysis plot-confusion-matrix
+
+Other available visualizations:
+
+python -m marketing_analysis.modeling.visualize_and_error_analysis plot-roc-curves
+python -m marketing_analysis.modeling.visualize_and_error_analysis plot-feature-importance
+python -m marketing_analysis.modeling.visualize_and_error_analysis find-errors
+
+## 🤖 Models Trained
+
+We implemented and compared three models:
+
+Model               | Accuracy | F1 Score | ROC AUC
+--------------------|----------|----------|---------
+Logistic Regression | 88%      | 84%      | 0.71
+Random Forest       | 88%      | 84%      | 0.71
+XGBoost             | 89%      | 85%      | 0.72
+
+All models were tuned using GridSearchCV.
+
+## 🧠 Key Features Used
+
+- Engagement Score
+- Income
+- Ad Spend
+- Age Category (encoded)
+- Campaign Channel (encoded)
+- Previous Purchases
+
+## 📊 Visual Output
+
+- Confusion Matrix
+- ROC Curve
+- Feature Importance
+- Error Samples (misclassified predictions)
+
+These are saved in the reports/figures/ directory.
+
+## 💡 Business Value
+
+By accurately predicting conversion likelihood:
+- Marketing campaigns can focus on high-probability customers
+- Budgets can be reduced by avoiding outreach to low-conversion segments
+- Messaging can be tailored to audience segments with the highest impact
+
+
+## 👨‍💻 Author
+
+David Lin  
+University of Maryland  
+Spring 2025 – INST414 Final Project
+
+## 📜 License
+
+MIT License
+
+
+#Author Note
+This was completed with the help of an AI assistance tool(Github Copilot, A little ChatGPT) Also confusion matrix is the most helpful visualization in my opinion
