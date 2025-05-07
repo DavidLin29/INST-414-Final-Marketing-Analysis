@@ -59,3 +59,21 @@ Marketing Analysis to Increase Sales
 
 --------
 
+#How to run all the code
+# 1. Run dataset cleaning and preparation
+python -m marketing_analysis.modeling.dataset
+
+# 2. Generate features
+python -m marketing_analysis.modeling.features
+
+# 3. Train all models (Logistic Regression, Random Forest, XGBoost)
+python -m marketing_analysis.modeling.train
+
+# 4. Run predictions on test set
+python -m marketing_analysis.modeling.predict
+
+# 5. Visualize model performance and do error analysis
+python -m marketing_analysis.modeling.visualize_and_error_analysis plot-confusion-matrix
+python -m marketing_analysis.modeling.visualize_and_error_analysis plot-roc-curves
+python -m marketing_analysis.modeling.visualize_and_error_analysis plot-feature-importance
+python -m marketing_analysis.modeling.visualize_and_error_analysis find-errors
