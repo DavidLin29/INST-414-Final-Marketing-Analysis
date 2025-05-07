@@ -6,7 +6,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-from Marketing_Analysis.config import FIGURES_DIR, PROCESSED_DATA_DIR
+from marketing_analysis.config import FIGURES_DIR, PROCESSED_DATA_DIR
 
 app = typer.Typer()
 
