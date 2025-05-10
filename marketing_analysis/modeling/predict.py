@@ -1,14 +1,15 @@
+#imports necessary libraries
 from pathlib import Path
 import typer
 import pandas as pd
 import joblib
 from loguru import logger
 from tqdm import tqdm
-
+#imports the processed data files
 from marketing_analysis.config import MODELS_DIR, PROCESSED_DATA_DIR
 
 app = typer.Typer()
-
+#This function runs the models and makes predictions on the data
 @app.command()
 def main(
     features_path: Path = PROCESSED_DATA_DIR / "features.csv",

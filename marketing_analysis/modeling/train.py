@@ -1,3 +1,4 @@
+#imports necessary libraries
 from pathlib import Path
 from loguru import logger
 from tqdm import tqdm
@@ -10,19 +11,19 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from xgboost import XGBClassifier
 from sklearn.metrics import classification_report, confusion_matrix, roc_auc_score, RocCurveDisplay
-
+#imports the processed data files
 from marketing_analysis.config import PROCESSED_DATA_DIR, MODELS_DIR
 
 app = typer.Typer()
 
-
+# This function prepares the features for the model training
 def prepare_features(df: pd.DataFrame):
     X = df[["EngagementScore", "Income", "AdSpend", "Age Category", "CampaignChannel", "PreviousPurchases"]]
     X = pd.get_dummies(X, columns=["Age Category", "CampaignChannel"], drop_first=True)
     y = df["Conversion"]
     return train_test_split(X, y, test_size=0.2, random_state=42)
 
-
+# This function trains the Logistic Regression model using GridSearchCV
 def train_logistic_regression(X_train, y_train):
     logger.info("Training Logistic Regression with GridSearchCV...")
     param_grid = {"C": [0.1, 1, 10], "penalty": ["l2"]}
@@ -31,7 +32,7 @@ def train_logistic_regression(X_train, y_train):
     logger.success(f"Best Logistic Regression params: {grid.best_params_}")
     return grid.best_estimator_
 
-
+# This function trains the Random Forest model using GridSearchCV
 def train_random_forest(X_train, y_train):
     logger.info("Training Random Forest with GridSearchCV...")
     param_grid = {"n_estimators": [100, 200], "max_depth": [5, 10]}
@@ -40,7 +41,7 @@ def train_random_forest(X_train, y_train):
     logger.success(f"Best Random Forest params: {grid.best_params_}")
     return grid.best_estimator_
 
-
+# This function trains the XGBoost model using GridSearchCV
 def train_xgboost(X_train, y_train):
     logger.info("Training XGBoost with GridSearchCV...")
     param_grid = {
@@ -53,7 +54,7 @@ def train_xgboost(X_train, y_train):
     logger.success(f"Best XGBoost params: {grid.best_params_}")
     return grid.best_estimator_
 
-
+# This function evaluates the model using classification report and ROC AUC score
 def evaluate_model(model, X_test, y_test, name="Model"):
     y_pred = model.predict(X_test)
     logger.info(f"Evaluation Report for {name}:")
@@ -62,7 +63,7 @@ def evaluate_model(model, X_test, y_test, name="Model"):
     logger.info(f"ROC AUC Score: {roc_auc:.3f}")
     return y_pred
 
-
+# This function runs the main script to train and evaluate the models
 @app.command()
 def main(features_path: Path = PROCESSED_DATA_DIR / "features.csv"):
     df = pd.read_csv(features_path)
